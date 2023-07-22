@@ -16,8 +16,8 @@ public class OpenAPIConfig {
             info(new Info().
                     title("Our open book API").
                     version("1.0.0").
-                    contact(new Contact().name("Lachezar Balev").
-                            email("lachezar.balev@gmail.com")).
+                    contact(new Contact().name("Magdalena Velikova").
+                            email("magdalenal.velikova@gmail.com")).
                     description("Our book API"));
     return info;
   }
