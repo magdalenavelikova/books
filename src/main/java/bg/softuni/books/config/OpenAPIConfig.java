@@ -12,14 +12,14 @@ public class OpenAPIConfig {
 
   @Bean
   public OpenAPI openAPI() {
-    OpenAPI info = new OpenAPI().
+    return new OpenAPI().
             info(new Info().
                     title("Our open book API").
                     version("1.0.0").
                     contact(new Contact().name("Magdalena Velikova").
                             email("magdalenal.velikova@gmail.com")).
                     description("Our book API"));
-    return info;
+
   }
 
 }
