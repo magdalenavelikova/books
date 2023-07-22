@@ -4,11 +4,14 @@ package bg.softuni.books.config;
 import io.swagger.oas.models.OpenAPI;
 import io.swagger.oas.models.info.Contact;
 import io.swagger.oas.models.info.Info;
+import io.swagger.v3.oas.annotations.OpenAPIDefinition;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
+
 public class OpenAPIConfig {
+
 
   @Bean
   public OpenAPI openAPI() {
