@@ -52,8 +52,9 @@ function createTr(key, obj) {
     deleteBtn.addEventListener("click", deleteRecord);
     tdBtn.appendChild(deleteBtn);
     tr.appendChild(tdBook);
-    tr.appendChild(tdISBN);
     tr.appendChild(tdAuthor);
+    tr.appendChild(tdISBN);
+
      tr.appendChild(tdBtn);
     return tr;
 }
