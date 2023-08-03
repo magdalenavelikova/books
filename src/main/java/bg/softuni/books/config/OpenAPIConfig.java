@@ -11,7 +11,7 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class OpenAPIConfig {
 
-
+//add OpenApi Docs http://localhost:8080/v3/api-docs
     @Bean
     public OpenAPI openAPI() {
         return new OpenAPI().
