@@ -1,5 +1,6 @@
 package bg.softuni.books.service;
 
+import bg.softuni.books.exeption.BookNotFoundException;
 import bg.softuni.books.model.dto.AuthorDTO;
 import bg.softuni.books.model.dto.BookDTO;
 import bg.softuni.books.model.entity.AuthorEntity;
@@ -32,10 +33,15 @@ public class BookService {
     }
   }
 
-  public Optional<BookDTO> getBookById(Long bookId) {
-    return bookRepository.
-        findById(bookId).
-        map(this::map);
+  public BookDTO getBookById(Long bookId) {
+    Optional<BookDTO> bookDTO = bookRepository.
+            findById(bookId).
+            map(this::map);
+    if(bookDTO.isEmpty()){
+      throw new BookNotFoundException(bookId);
+    }
+
+    return bookDTO.get();
   }
 
   public List<BookDTO> getAllBooks() {

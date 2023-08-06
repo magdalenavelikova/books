@@ -1,19 +1,20 @@
 package bg.softuni.books.web;
 
+import bg.softuni.books.exeption.BookNotFoundException;
 import bg.softuni.books.model.dto.BookDTO;
+import bg.softuni.books.model.dto.BookErrorDTO;
 import bg.softuni.books.service.BookService;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
-import java.util.Optional;
 
 
 @RestController
@@ -36,21 +37,27 @@ public class BooksController {
 
     @Operation(summary = "Get book by the given ID")
     @ApiResponses(
-            value={
+            value = {
                     @ApiResponse(responseCode = "200",
                             description = "If the book was discovered.",
                             content = {@Content(mediaType = "application/json",
                                     schema = @Schema(implementation = BookDTO.class))}),
-                    @ApiResponse(responseCode = "400",  description = "If the Id was incorrect."),
+                    @ApiResponse(responseCode = "400", description = "If the Id was incorrect."),
                     @ApiResponse(responseCode = "404", description = "If the book was not found.")
             }
     )
     @GetMapping("/{id}")
     public ResponseEntity<BookDTO> getBookById(@PathVariable("id") Long bookId) {
-        Optional<BookDTO> bookOpt = bookService.getBookById(bookId);
-        return bookOpt.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.
-                notFound().
-                build());
+        BookDTO book = bookService.getBookById(bookId);
+        return ResponseEntity.ok(book);
+    }
+
+    @ExceptionHandler(BookNotFoundException.class)
+    public ResponseEntity<BookErrorDTO> onProductNotFound(BookNotFoundException bnfe) {
+        BookErrorDTO bookErrorDTO = new BookErrorDTO(bnfe.getId(), "Book not found");
+
+        return
+                ResponseEntity.status(HttpStatus.NOT_FOUND).body(bookErrorDTO);
     }
 
     @PostMapping
